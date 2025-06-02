@@ -83,10 +83,9 @@ function isEmpty(obj) {
 const emptyObj = {};
 const symbolObj = {[Symbol()]: true};
 
-console.log("Объект emptyObj пуст:", isEmpty(emptyObj));         // true
-console.log("Объект symbolObj пуст:", isEmpty(symbolObj));       // false
+console.log("Объект emptyObj пуст:", isEmpty(emptyObj));
+console.log("Объект symbolObj пуст:", isEmpty(symbolObj));
 
-// Объект с методами для работы с классами
 let obj1 = {
     className: 'open menu'
 };
@@ -113,7 +112,6 @@ obj1.removeClass = function(cls) {
 obj1.addClass('new').addClass('open').removeClass('menu');
 console.log("obj1.className:", obj1.className);
 
-// Работа с JSON
 let obj2 = {
     className: 'open menu',
     age: 30,
@@ -130,7 +128,7 @@ const obj3 = JSON.parse(jsonString);
 console.log("obj3:", obj3);
 
 console.log("JSON.stringify(obj2) === JSON.stringify(obj3):", 
-    JSON.stringify(obj2) === JSON.stringify(obj3));  // true
+    JSON.stringify(obj2) === JSON.stringify(obj3));
 
 function deepEqual(obj1, obj2) {
     if (obj1 === obj2) {
@@ -138,7 +136,9 @@ function deepEqual(obj1, obj2) {
     }
 
     if (typeof obj1 !== 'object' || 
-        typeof obj2 !== 'object' || obj2 === null) {
+        typeof obj2 !== 'object' || 
+        obj1 === null || 
+        obj2 === null) {
         return false;
     }
 
@@ -157,6 +157,7 @@ function deepEqual(obj1, obj2) {
 
     return true;
 }
+
 console.log("deepEqual(obj2, obj3):", deepEqual(obj2, obj3));
 
 function getSecondsToday() {
@@ -168,7 +169,6 @@ function getSecondsToday() {
 
 console.log("Секунд с начала дня:", getSecondsToday());
 
-// Форматирование даты
 function formatDate(date) {
     let day = date.getDate();
     let month = date.getMonth() + 1;
