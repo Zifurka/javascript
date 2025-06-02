@@ -1,152 +1,188 @@
-'use strict';
+function Book1(title, pubYear, price) {
+    this.title = title;
+    this.pubYear = pubYear;
+    this.price = price;
 
-class Book {
-    constructor(title, pubYear, price) {
-        this.title = title;
-        this.pubYear = pubYear;
-        this.price = price;
-    }
-
-    get title() {
-        return this._title;
-    }
-
-    set title(text) {
-        if (typeof text !== 'string' || text.trim() === '') {
-            throw new Error('Title must be a non-empty string.');
-        }
-        this._title = text.trim();
-    }
-
-    get pubYear() {
-        return this._pubYear;
-    }
-
-    set pubYear(newPubYear) {
-        if (typeof newPubYear !== 'number' || newPubYear <= 0 || !Number.isInteger(newPubYear)) {
-            throw new Error('pubYear must be a positive integer.');
-        }
-        this._pubYear = newPubYear;
-    }
-
-    get price() {
-        return this._price;
-    }
-
-    set price(newPrice) {
-        if (typeof newPrice !== 'number' || newPrice <= 0) {
-            throw new Error('Price must be a positive number.');
-        }
-        this._price = newPrice;
-    }
-
-    show() {
-        console.log(`Название: ${this._title},
-Год публикации: ${this._pubYear},
-Цена: ${this._price}`);
-    }
-
-    static compare(book1, book2) {
-        return book1.pubYear - book2.pubYear;
-    }
-}
-
-try {
-    let book1 = new Book('1984', 1949, 1000);
-    book1.show();
-    book1.price = 1900;
-    book1.show();
-
-    console.log("Цена book1:", book1.price);
-
-    let book2 = new Book('To Kill a Mockingbird', 1960, 890);
-    book2.show();
-    let book3 = new Book('1984', 1949, 250);
-    book3.show();
-
-    let books = [book1, book2, book3];
-    books.sort(Book.compare);
-    console.log("Книги после сортировки по году издания:");
-    for (let i = 0; i < books.length; ++i) {
-        books[i].show();
-    }
-
-
-    function isEmpty(obj) {
-        if (typeof obj !== 'object' || obj === null) return true;
-
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key)) return false;
-        }
-        return Object.getOwnPropertySymbols(obj).length === 0;
-    }
-
-    let obj1 = { [Symbol()]: true };
-    let obj2 = {};
-
-    console.log("Объект 1", isEmpty(obj1));
-    console.log("Объект 2", isEmpty(obj2));
-
-
-
-    let classObject = {
-        className: "open menu",
-
-        addClass(cls) {
-            let classes = this.className.split(' ');
-            if (!classes.includes(cls)) {
-                this.className += " " + cls;
-            }
-            return this;
-        },
-
-        removeClass(cls) {
-            let classes = this.className.split(' ');
-            let index = classes.indexOf(cls);
-            if (index !== -1) {
-                classes.splice(index, 1);
-                this.className = classes.join(' ');
-            }
-        }
+    this.show = function() {
+        console.log(Название: ${this.title}, Цена: ${this.price});
     };
-
-    classObject.addClass('close');
-    console.log("className после addClass('close'):", classObject.className);
-
-    classObject.addClass('open');
-    console.log("className после addClass('open'):", classObject.className);
-
-    classObject.removeClass('menu');
-    console.log("className после removeClass('menu'):", classObject.className);
-
-
-    let jsonString = JSON.stringify(classObject, null, 2);
-    console.log("JSON строка:", jsonString);
-
-    let object2 = JSON.parse(jsonString);
-    console.log('Сравнение объектов из JSON:', JSON.stringify(object2) === JSON.stringify(classObject));
-
-
-    function getSecondsToday() {
-        let now = new Date();
-        let start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        return Math.floor((now - start) / 1000); 
-    }
-
-    console.log("Секунд с начала дня: ", getSecondsToday());
-
-
-    function formatDate(date) {
-        return date.toLocaleDateString();
-    }
-
-    let date1 = new Date(2024, 0, 20); 
-    let date2 = new Date(2000, 11, 1); 
-    let date3 = new Date(1995, 9, 10); 
-
-    console.log("Дата 1:", formatDate(date1));
-    console.log("Дата 2:", formatDate(date2));
-    console.log("Дата 3:", formatDate(date3));
-} catch (error) {
-    console.error("Произошла ошибка:", error.message);
 }
+
+const book1 = new Book1("JavaScript", 2020, 1000);
+book1.show();
+
+function Book2(title, pubYear, price) {
+    let _title = title;
+    let _pubYear = pubYear;
+    let _price = price;
+
+    Object.defineProperties(this, {
+        title: {
+            get() { return _title; },
+            set(value) {
+                if (value && value.trim() !== "") {
+                    _title = value;
+                } else {
+                    console.error("Название не может быть пустым");
+                }
+            }
+        },
+        pubYear: {
+            get() { return _pubYear; },
+            set(value) {
+                if (value > 0) {
+                    _pubYear = value;
+                } else {
+                    console.error("Год издания должен быть положительным");
+                }
+            }
+        },
+        price: {
+            get() { return _price; },
+            set(value) {
+                if (value > 0) {
+                    _price = value;
+                } else {
+                    console.error("Цена должна быть положительной");
+                }
+            }
+        }
+    });
+}
+
+const book2 = new Book2("JavaScript", 2020, 1000);
+console.log(book2.title, book2.pubYear, book2.price);
+
+book2.title = "New Title";
+book2.pubYear = 2021;
+book2.price = 1200;
+
+// console.log(book2.title, book2.pubYear, book2.price);
+
+// book2.title = ""; // Ошибка
+// book2.pubYear = -1; // Ошибка
+// book2.price = -100; // Ошибка
+
+function Book3(title, pubYear, price) {
+    this.title = title;
+    this.pubYear = pubYear;
+    this.price = price;
+}
+
+Book3.compare = function(a, b) {
+    return a.pubYear - b.pubYear;
+};
+
+const books = [
+    new Book3("Book A", 2010, 500),
+    new Book3("Book B", 2005, 300),
+    new Book3("Book C", 2020, 1000)
+];
+
+books.sort(Book3.compare);
+console.log(books);
+  
+  function isEmpty(obj) {
+    for (let key in obj) {
+      return false;
+    }
+    return true;
+  }
+  
+  const emptyObj = {};
+  const symbolObj = {[Symbol()]: true};
+  
+  console.log("Объект emptyObj пуст:", isEmpty(emptyObj));
+  console.log("Объект symbolObj пуст:", isEmpty(symbolObj));
+  
+let obj1 = {
+    className: 'open menu'
+  };
+  
+  obj1.addClass = function(cls) {
+    const classes = this.className.split(' ');
+    if (!classes.includes(cls)) {
+      classes.push(cls);
+      this.className = classes.join(' ').trim();
+    }
+    return this;
+  };
+  
+  obj1.removeClass = function(cls) {
+    const classes = this.className.split(' ');
+    const index = classes.indexOf(cls);
+    if (index !== -1) {
+      classes.splice(index, 1);
+      this.className = classes.join(' ').trim();
+    }
+    return this;
+  };
+  
+  obj1.addClass('new').addClass('open').removeClass('menu');
+  console.log("obj1.className:", obj1.className);
+  
+  let obj2 = {
+    className: 'open menu',
+    age: 30,
+    details: {
+      name: 'John',
+      city: 'New York'
+    }
+  };
+  
+  const jsonString = JSON.stringify(obj2, null, 2);
+  console.log("JSON:\n", jsonString);
+  
+  const obj3 = JSON.parse(jsonString);
+  console.log("obj3:", obj3);
+  
+  console.log("JSON.stringify(obj2) === JSON.stringify(obj3):", JSON.stringify(obj2) === JSON.stringify(obj3));
+  
+  function deepEqual(obj1, obj2) {
+    if (obj1 === obj2) {
+      return true;
+    }
+  
+    if (typeof obj1 !== 'object'  obj1 === null  typeof obj2 !== 'object' || obj2 === null) {
+      return false;
+    }
+  
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+  
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+  
+    for (let key of keys1) {
+      if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
+  
+  console.log("deepEqual(obj2, obj3):", deepEqual(obj2, obj3));
+function getSecondsToday() {
+    let now = new Date();
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let diff = now - today; 
+    return Math.round(diff / 1000); 
+  }
+  
+  console.log("Секунд с начала дня:", getSecondsToday());
+  
+  function formatDate(date) {
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear().toString().slice(-2);
+  
+    day = day < 10 ? '0' + day : day;
+    month = month < 10 ? '0' + month : month;
+  
+    return ${day}.${month}.${year};
+  }
+  
+  const myDate = new Date();
+  console.log("Дата в формате дд.мм.гг:", formatDate(myDate));
