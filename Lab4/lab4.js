@@ -4,7 +4,7 @@ function Book1(title, pubYear, price) {
     this.price = price;
 
     this.show = function() {
-        console.log(Название: ${this.title}, Цена: ${this.price});
+        console.log(`Название: ${this.title}, Цена: ${this.price}`);
     };
 }
 
@@ -137,7 +137,7 @@ function deepEqual(obj1, obj2) {
         return true;
     }
 
-    if (typeof obj1 !== 'object'  
+    if (typeof obj1 !== 'object' || 
         typeof obj2 !== 'object' || obj2 === null) {
         return false;
     }
@@ -158,6 +158,7 @@ function deepEqual(obj1, obj2) {
     return true;
 }
 console.log("deepEqual(obj2, obj3):", deepEqual(obj2, obj3));
+
 function getSecondsToday() {
     let now = new Date();
     let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -176,7 +177,7 @@ function formatDate(date) {
     day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
 
-    return ${day}.${month}.${year};
+    return `${day}.${month}.${year}`;
 }
 
 const myDate = new Date();
