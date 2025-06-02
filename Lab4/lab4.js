@@ -172,16 +172,19 @@ function getSecondsToday() {
 }
 
 console.log("Секунд с начала дня:", getSecondsToday());
-
 function formatDate(date) {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear().toString().slice(-2);
-day = day < 10 ? '0' + day : day;
+
+    day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
 
     return ${day}.${month}.${year};
 }
+
+const myDate = new Date();
+console.log("Дата в формате дд.мм.гг:", formatDate(myDate));
 
 const myDate = new Date();
 console.log("Дата в формате дд.мм.гг:", formatDate(myDate));
