@@ -8,15 +8,18 @@
 
     <h1>Считать ворон</h1>
 
-    <form id="crowForm">
+    <form id="crowForm"> onsubmit="handleSumbit(event)">
         <label for="num">Количество ворон:</label>
         <input type="number" id="num" name="num" min="0" required><br><br>
 
-        <button type="button" onclick="countCrows()">Считать</button>
     </form>
 
     <script>
         'use strict';
+        function handleSubmit(evebt) {
+            event.preventDefault();
+            countCrows();
+        }
         function countCrows() {
             const num = parseInt(document.getElementById("num").value);
 
