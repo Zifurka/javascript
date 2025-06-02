@@ -1,4 +1,4 @@
-function Book1(title, pubYear, price) {
+unction Book1(title, pubYear, price) {
     this.title = title;
     this.pubYear = pubYear;
     this.price = price;
@@ -143,7 +143,7 @@ let obj1 = {
       return true;
     }
   
-    if (typeof obj1 !== 'object'  obj1 === null  typeof obj2 !== 'object' || obj2 === null) {
+    if (typeof obj1 !== 'object' obj1 === null typeof obj2 !== 'object' || obj2 === null) {
       return false;
     }
   
