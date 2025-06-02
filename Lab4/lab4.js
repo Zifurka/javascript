@@ -1,4 +1,4 @@
-unction Book1(title, pubYear, price) {
+function Book1(title, pubYear, price) {
     this.title = title;
     this.pubYear = pubYear;
     this.price = price;
