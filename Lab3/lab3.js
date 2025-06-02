@@ -2,7 +2,7 @@
 
 import {
     fib
-  } from './functions.js';
+  } from './func.js';
 
 /**
  * Возвращает дробную часть числа.
