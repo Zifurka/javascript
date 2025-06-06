@@ -8,15 +8,9 @@
         #text {
             font-size: 20px;
             margin: 20px 0;
+            height: 1.2em;
+            line-height: 1.2em;
             overflow: hidden;
-            transition: height 0.3s, visibility 0.3s;
-            height: auto;
-        }
-        
-        #text.hidden {
-            visibility: hidden;
-            height: 0;
-            margin: 0;
         }
     </style>
 </head>
@@ -28,28 +22,13 @@
 <script>
     const textElement = document.getElementById('text');
     const toggleButton = document.getElementById('toggleButton');
-    const originalHeight = textElement.scrollHeight + 'px';
-    textElement.style.height = originalHeight;
-    
     toggleButton.addEventListener('click', function() {
-        if (textElement.classList.contains('hidden')) {
-            // Показываем текст
-            textElement.classList.remove('hidden');
-            textElement.style.height = originalHeight;
+        if (textElement.style.visibility === 'hidden') {
+            textElement.style.visibility = 'visible';
             toggleButton.textContent = 'Скрыть текст';
-            
-            setTimeout(() => {
-                if (!textElement.classList.contains('hidden')) {
-                    textElement.style.height = 'auto';
-                }
-            }, 300);
         } else {
-            // Скрываем текст
-            textElement.style.height = originalHeight;
-            setTimeout(() => {
-                textElement.classList.add('hidden');
-                toggleButton.textContent = 'Показать текст';
-            }, 10);
+            textElement.style.visibility = 'hidden';
+            toggleButton.textContent = 'Показать текст';
         }
     });
 </script>
